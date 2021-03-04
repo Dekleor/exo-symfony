@@ -6,12 +6,24 @@ use App\Repository\ComponentsRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ComponentsRepository::class)
  */
 class Components
 {
+    const AVAILABLE_TYPES =[
+        'CPU' => 'Processeur',
+        'RAM' => 'Mémoire Vive',
+        'Graphic Card' => 'Carte Graphique',
+        'Case' => 'Boitier',
+        'Power Supply' => 'Alimentation',
+        'HDD/SSD' => 'Disque Dur',
+        'Motherboard' => 'Carte Mère',
+        'Network Card' => 'Carte Réseau'
+    ];
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -21,11 +33,14 @@ class Components
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
+     * @Assert\Length(min=4)
      */
     private $name;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Positive()
      */
     private $price;
 
@@ -36,6 +51,7 @@ class Components
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Choice(callback="getTypes")
      */
     private $brand;
 
@@ -43,6 +59,16 @@ class Components
      * @ORM\ManyToMany(targetEntity=Computers::class, mappedBy="components")
      */
     private $computers;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $created_at;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $updated_at;
 
     public function __construct()
     {
@@ -81,6 +107,11 @@ class Components
     public function getType(): ?string
     {
         return $this->type;
+    }
+
+    public function getTypes(): array
+    {
+        return self::AVAILABLE_TYPES;
     }
 
     public function setType(string $type): self
@@ -125,6 +156,30 @@ class Components
         if ($this->computers->removeElement($computer)) {
             $computer->removeComponent($this);
         }
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->created_at;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $created_at): self
+    {
+        $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updated_at): self
+    {
+        $this->updated_at = $updated_at;
 
         return $this;
     }

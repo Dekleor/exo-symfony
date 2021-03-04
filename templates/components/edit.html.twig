@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Components{% endblock %}
+
+{% block body %}
+    <h1>Edit Components</h1>
+
+    {{ include('components/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('components_index') }}">back to list</a>
+
+    {{ include('components/_delete_form.html.twig') }}
+{% endblock %}

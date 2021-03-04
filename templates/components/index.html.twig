@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Components index{% endblock %}
+
+{% block body %}
+    <h1>Components index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Type</th>
+                <th>Brand</th>
+                <th>Created_at</th>
+                <th>Updated_at</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for component in components %}
+            <tr>
+                <td>{{ component.id }}</td>
+                <td>{{ component.name }}</td>
+                <td>{{ component.price }}</td>
+                <td>{{ component.type }}</td>
+                <td>{{ component.brand }}</td>
+                <td>{{ component.createdAt ? component.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ component.updatedAt ? component.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('components_show', {'id': component.id}) }}">show</a>
+                    <a href="{{ path('components_edit', {'id': component.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('components_new') }}">Create new</a>
+{% endblock %}

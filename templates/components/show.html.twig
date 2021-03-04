@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Components{% endblock %}
+
+{% block body %}
+    <h1>Components</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ component.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ component.name }}</td>
+            </tr>
+            <tr>
+                <th>Price</th>
+                <td>{{ component.price }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ component.type }}</td>
+            </tr>
+            <tr>
+                <th>Brand</th>
+                <td>{{ component.brand }}</td>
+            </tr>
+            <tr>
+                <th>Created_at</th>
+                <td>{{ component.createdAt ? component.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Updated_at</th>
+                <td>{{ component.updatedAt ? component.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('components_index') }}">back to list</a>
+
+    <a href="{{ path('components_edit', {'id': component.id}) }}">edit</a>
+
+    {{ include('components/_delete_form.html.twig') }}
+{% endblock %}

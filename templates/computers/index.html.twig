@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Computers index{% endblock %}
+
+{% block body %}
+    <h1>Computers index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Type</th>
+                <th>Updated_at</th>
+                <th>Created_at</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for computer in computers %}
+            <tr>
+                <td>{{ computer.id }}</td>
+                <td>{{ computer.name }}</td>
+                <td>{{ computer.description }}</td>
+                <td>{{ computer.type }}</td>
+                <td>{{ computer.updatedAt ? computer.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ computer.createdAt ? computer.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('computers_show', {'id': computer.id}) }}">show</a>
+                    <a href="{{ path('computers_edit', {'id': computer.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('computers_new') }}">Create new</a>
+{% endblock %}
