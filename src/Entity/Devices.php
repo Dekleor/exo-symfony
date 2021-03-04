@@ -14,9 +14,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Devices
 {
     const AVAILABLE_TYPES =[
-        'Desktop' => 'Ordinateur de bureau',
-        'Laptop' => 'Ordinateur Portable',
-        'tablet' => 'Tablette',
+        'Keyboard' => 'Clavier',
+        'Mouse' => 'Souris',
+        'Screen' => 'Ecran',
+        'Speakers' => 'Enceintes',
+        'Webcam' => 'Webcam',
     ];
 
     /**

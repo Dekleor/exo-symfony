@@ -35,6 +35,8 @@ class ComponentsController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $component->setCreatedAt(new DateTime());
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($component);
             $entityManager->flush();
@@ -67,6 +69,8 @@ class ComponentsController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $component->setUpdatedAt(new DateTime());
+
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('components_index');

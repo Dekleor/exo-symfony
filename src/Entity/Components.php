@@ -46,12 +46,12 @@ class Components
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Choice(callback="getTypes")
      */
     private $type;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Choice(callback="getTypes")
      */
     private $brand;
 

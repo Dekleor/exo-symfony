@@ -6,6 +6,8 @@ use App\Entity\Components;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+
 
 class ComponentsType extends AbstractType
 {
@@ -13,9 +15,11 @@ class ComponentsType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('price')
-            ->add('type')
+            ->add('type', ChoiceType::class, [
+                'choices' => array_flip(Components::AVAILABLE_TYPES)
+            ])
             ->add('brand')
+            ->add('price')
             ->add('computers')
         ;
     }

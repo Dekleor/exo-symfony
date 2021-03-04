@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Computers;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -13,8 +14,10 @@ class ComputersType extends AbstractType
     {
         $builder
             ->add('name')
+            ->add('type', ChoiceType::class, [
+                'choices' => array_flip(Computers::AVAILABLE_TYPES)
+            ])
             ->add('description')
-            ->add('type')
             ->add('components')
             ->add('devices')
         ;
